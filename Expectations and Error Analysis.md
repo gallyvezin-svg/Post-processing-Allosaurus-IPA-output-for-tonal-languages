@@ -59,6 +59,26 @@ PER (Allosaurus with tones) : 37.74%
 
 Looking at these results, we can see an improvement but it still isn't enough to claim the model to be really efficient.
 
+Tested below on mandarin, a very high-resource language :
+
+Expert transcription  : 
+
+--- pēɩ pàba pʰēɩ āmpʰʌɩ mà fə̀n t̪s̪á ṣǎn ḷǎn
+
+Allosaurus            :
+
+--- pe papa t̪ʰe ant̪ʰa ma s̪an s̪a ʂan la
+
+Allosaurus with tones : 
+
+--- pē pāpà t̪ʰé ānt̪ʰà mā s̪ān s̪à ʂàn là
+
+Evaluation:
+
+PER (Allosaurus)            : 73.53%
+
+PER (Allosaurus with tones) : 70.59%
+
 ## Limitations of this work : 
 
 1. If Allosaurus provides an incorrect IPA transcription, the tone distribution won't be accurate.
