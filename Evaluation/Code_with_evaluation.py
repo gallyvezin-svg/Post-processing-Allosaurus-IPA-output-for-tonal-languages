@@ -62,18 +62,29 @@ for t, hz in zip(timestamps, F0_values):
     F0_real_data.append({"time": t, "z_score": z})
 
 # F0 to tone
-def F0_to_tone (z_scores_list, config):
+def F0_to_tone(z_scores_list, config):
     valid_z = [z for z in z_scores_list if z is not None]
     if len(valid_z) == 0:
         return ""
+    
+    th_contour = config.get("threshold_contour", 0.4)
+    th_level = config.get("threshold_level", 1.2)
+    th_mid = config.get("threshold_mid", 0.4)
+    
     mean_z = np.mean(valid_z)
     third = len(valid_z) // 3
     z_begin = np.mean(valid_z[:third]) if third > 0 else valid_z[0]
     z_end = np.mean(valid_z[-third:]) if third > 0 else valid_z[-1]
     global_delta = z_end - z_begin
 
-    # Countours
-    if abs(global_delta) >= 0.4:
+    # Complex contour
+    if "rising_falling" in config and len(valid_z) >= 3:
+        z_mid = np.mean(valid_z[third:2*third]) if third > 0 else mean_z
+        if (z_mid - z_begin > th_contour) and (z_mid - z_end > th_contour):
+            return config["rising_falling"]
+
+    # Simple contours
+    if abs(global_delta) >= th_contour:
         if global_delta > 0: 
             if "rising_high" in config and z_begin > -0.2: 
                 return config["rising_high"]
@@ -84,24 +95,19 @@ def F0_to_tone (z_scores_list, config):
         else:
             if "falling" in config: 
                 return config["falling"]
-    if "rising_falling" in config and len(valid_z) >= 3:
-        z_mid = np.mean(valid_z[third:2*third]) if third > 0 else mean_z
-        if z_mid - z_begin > 0.4 and z_mid - z_end > 0.4:
-            return config["rising_falling"]
 
     # Levels
-    if "very_high" in config and mean_z > 1.2: 
+    if "very_high" in config and mean_z > th_level: 
         return config["very_high"]
-    if "very_low" in config and mean_z < -1.2: 
+    if "very_low" in config and mean_z < -th_level: 
         return config["very_low"]
-
     if "Mid" in config:
-        # 3 levels
-        if mean_z > 0.4 and "High" in config: return config["High"]
-        if mean_z < -0.4 and "Low" in config: return config["Low"]
+        # 3 Levels
+        if mean_z > th_mid and "High" in config: return config["High"]
+        if mean_z < -th_mid and "Low" in config: return config["Low"]
         return config["Mid"]  
     else:
-        # 2 levels
+        # 2 Levels
         if mean_z > 0.0 and "High" in config: return config["High"]
         return config.get("Low", "")
 
