@@ -53,9 +53,9 @@ And the one with tones :
 
 Evaluation:
 
-PER (Allosaurus)            : 54.72%
+- PER (Allosaurus)            : 54.72%
 
-PER (Allosaurus with tones) : 37.74%
+- PER (Allosaurus with tones) : 37.74%
 
 Looking at these results, we can see an improvement but it still isn't enough to claim the model to be really efficient.
 
@@ -75,9 +75,9 @@ Allosaurus with tones :
 
 Evaluation:
 
-PER (Allosaurus)            : 73.53%
+- PER (Allosaurus)            : 73.53%
 
-PER (Allosaurus with tones) : 70.59%
+- PER (Allosaurus with tones) : 70.59%
 
 ## Limitations of this work : 
 
