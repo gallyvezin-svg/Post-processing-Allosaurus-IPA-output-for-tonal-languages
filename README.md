@@ -56,6 +56,8 @@ actual_config = LANGUAGE_SPECIFIC_CONFIGURATION[ACTIVE_LANGUAGE]
 ### Directory
 Put the access directory of the audio you want to use in "audio_file".
 
+You can try the script with the zulu audio file in the "Audios" folder of the repository.
+
 ```python
 audio_file = r"C:\Users\...\audios\test_zulu.wav"
 ```
@@ -102,7 +104,7 @@ Allosaurus with tones : l í m l í m l ú n ù z ɛ́ l ú n
 ```
 
 ### Evaluation
-If you want to evaluate the output obtained, you can download the "Code with Evaluation" in the "Evaluation" directory in the repository (and personnalize the script exactly as explained above) OR copy the following parts : 
+If you want to evaluate the output obtained, you can download the "Code with Evaluation" in the "Evaluation" folder of the repository (and personnalize the script exactly as explained above) OR copy the following parts : 
 
 You should add an expert IPA transcription of the audio you want to test and add this whole part containing PER (Phone Error Rate).
 
